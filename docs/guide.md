@@ -65,7 +65,47 @@ Since the Kubernetes cluster is local (Minikube), GitHub's default cloud runners
 
 ---
 
-## 4. Glossary
+---
+
+## 4. Maintenance (Color Changes)
+
+### Swapping Existing Colors
+To swap colors between environments (e.g., set Staging to `red`):
+1. Update `terraform/variables.tf`.
+2. Run `terraform workspace select staging` and `terraform apply`.
+3. Restart pods: `kubectl rollout restart deployment/config-master -n staging`.
+
+### Adding New Colors
+1. Update the `colorPalette` in `app/src/index.js`.
+2. Push to GitHub to build the new image.
+3. Update `terraform/variables.tf` with the new color name and `terraform apply`.
+
+---
+
+## 5. Shutdown & Monitoring
+
+### Stop/Start Cluster
+- **Stop**: `minikube stop` (saves resources, persists data).
+- **Start**: `minikube start` (resumes all services automatically).
+
+### Monitoring with k9s
+Run `k9s` in your terminal to manage the cluster visually:
+- `:ns` - Switch namespace.
+- `l` - View logs.
+- `s` - Shell into pod.
+
+### GitHub Self-Hosted Runner
+If you are using a local runner to connect GitHub to your Minikube:
+- **Stop**: Locate the runner process (e.g., `ps aux | grep run.sh`) and kill it, or simply close the terminal if it's running in the foreground.
+- **Start**: 
+  ```bash
+  cd ~/GIS-UDM/actions-runner
+  nohup ./run.sh &
+  ```
+
+---
+
+## 6. Glossary
 
 | Technology | Role in this Project |
 |---|---|
