@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-master
+  namespace: staging
+  labels:
+    app: config-master
+    env: staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-master
+      env: staging
+  template:
+    metadata:
+      labels:
+        app: config-master
+        env: staging
+    spec:
+      containers:
+        - name: config-master
+          image: valsuh/config-master:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3000
+          # Inject all keys from the ConfigMap as environment variables
+          envFrom:
+            - configMapRef:
+                name: config-master-config
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10

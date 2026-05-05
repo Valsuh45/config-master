@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-master-config
+  namespace: production
+  labels:
+    app: config-master
+    env: production
+data:
+  APP_COLOR: "red"
+  APP_ENV: "production"

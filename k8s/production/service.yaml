@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-master-svc
+  namespace: production
+  labels:
+    app: config-master
+    env: production
+spec:
+  type: NodePort
+  selector:
+    app: config-master
+    env: production
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3000
+      nodePort: 30081   # Access via: minikube service config-master-svc -n production
