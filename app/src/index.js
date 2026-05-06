@@ -7,13 +7,14 @@ const PORT = process.env.PORT || 3000;
 
 // These come from the Kubernetes ConfigMap injected as environment variables
 const APP_COLOR = process.env.APP_COLOR || 'grey';
-const APP_ENV   = process.env.APP_ENV   || 'local';
+const APP_ENV = process.env.APP_ENV || 'local';
 
 // Map color names to richer hex values for a nicer UI
 const colorPalette = {
-  blue:  { bg: '#1a3a5c', accent: '#4a90d9', text: '#e8f4fd', badge: 'STAGING'    },
-  red:   { bg: '#4a1010', accent: '#d94a4a', text: '#fde8e8', badge: 'PRODUCTION' },
-  grey:  { bg: '#2a2a2a', accent: '#888888', text: '#eeeeee', badge: 'LOCAL'      },
+  blue: { bg: '#1a3a5c', accent: '#4a90d9', text: '#e8f4fd', badge: 'STAGING' },
+  red: { bg: '#4a1010', accent: '#d94a4a', text: '#fde8e8', badge: 'PRODUCTION' },
+  green: { bg: '#104a10', accent: '#4ad94a', text: '#e8fde8', badge: 'STAGING' },
+  grey: { bg: '#2a2a2a', accent: '#888888', text: '#eeeeee', badge: 'LOCAL' },
 };
 
 const palette = colorPalette[APP_COLOR] ?? colorPalette.grey;
